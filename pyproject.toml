@@ -8,13 +8,13 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fairdm = {git = "https://github.com/FAIR-DM/fairdm"}
-django-comments-xtd = "^2.10.7"
+django-comments-xtd = "^2.10.8"
 django-waffle = "*"
-
 
 [tool.poetry.group.dev.dependencies]
 fairdm-dev-tools = {git = "https://github.com/FAIR-DM/dev-tools"}
+shot-scraper = "^1.8"
+fairdm = {git = "https://github.com/FAIR-DM/fairdm", rev = "development"}
 
 [build-system]
 requires = ["poetry-core"]
