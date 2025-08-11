@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "fairdm-discussions"
+version = "0.1.0"
+description = "A user-driven discussion plugin for FairDM"
+authors = ["Sam <samuel.scott.jennings@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fairdm = {git = "https://github.com/FAIR-DM/fairdm"}
+django-comments-xtd = "^2.10.7"
+django-waffle = "*"
+
+
+[tool.poetry.group.dev.dependencies]
+fairdm-dev-tools = {git = "https://github.com/FAIR-DM/dev-tools"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
