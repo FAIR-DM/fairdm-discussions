@@ -9,7 +9,7 @@ COMMENTS_APP = "django_comments_xtd"
 COMMENTS_XTD_THREADED_EMAILS = True
 COMMENTS_XTD_MAX_THREAD_LEVEL = 8  # Maximum thread level for comments
 COMMENTS_XTD_API_GET_USER_AVATAR = "fairdm.contrib.contributors.utils.get_avatar_url"
-# COMMENTS_XTD_LIST_ORDER = ("-thread_id", "order")  # Default comment ordering
+COMMENTS_XTD_LIST_ORDER = ("-thread_id", "order")  # Default comment ordering
 COMMENTS_XTD_APP_MODEL_OPTIONS = {
     "default": {
         "allow_flagging": True,
@@ -28,6 +28,7 @@ COMMENTS_XTD_SALT = (
 COMMENTS_XTD_FROM_EMAIL = "no-reply@example.com"
 COMMENTS_XTD_CONTACT_EMAIL = "admin@example.com"
 COMMENTS_XTD_API_USER_REPR = lambda u: str(u)
+# COMMENTS_XTD_LIST_ORDER = ("thread_id", "-order")
 
 EASY_ICONS.get("aliases", {}).update(
     {
