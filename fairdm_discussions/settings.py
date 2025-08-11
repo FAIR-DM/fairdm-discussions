@@ -2,7 +2,8 @@
 Default settings for the commenting system built in to FairDM.
 """
 
-EASY_ICONS = globals.get("EASY_ICONS", {})
+EASY_ICONS = globals().get("EASY_ICONS", {})
+INSTALLED_APPS = globals().get("INSTALLED_APPS", [])
 
 COMMENTS_APP = "django_comments_xtd"
 COMMENTS_XTD_THREADED_EMAILS = True
@@ -33,3 +34,10 @@ EASY_ICONS.get("aliases", {}).update(
         "comments": "fas fa-comments",  # Ensure the comments icon is set correctly
     }
 )
+
+
+INSTALLED_APPS += [
+    "fairdm_discussions",
+    "django_comments_xtd",
+    "django_comments",
+]

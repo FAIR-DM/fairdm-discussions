@@ -1,1 +1,1 @@
-__fdm_setup_module__ = "discussions.settings"
+__fdm_setup_module__ = "fairdm_discussions.settings"
