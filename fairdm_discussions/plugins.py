@@ -1,42 +1,38 @@
 import waffle
-from django.http import Http404
+from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateView
 from fairdm import plugins
+from fairdm.core.dataset.models import Dataset
+from fairdm.core.measurement.models import Measurement
+from fairdm.core.project.models import Project
+from fairdm.core.sample.models import Sample
 
 
-class DiscussionPlugin(plugins.Explore, TemplateView):
-    name = "discussion"
+@plugins.register(Project, Dataset, Sample, Measurement)
+class Discussion(plugins.FairDMPlugin, TemplateView):
+    """
+    Plugin for adding discussion/commenting functionality to FairDM objects.
+
+    This plugin integrates django-comments-xtd to provide threaded discussions
+    on Projects, Datasets, Samples, and Measurements. It requires the waffle
+    switch 'allow_discussions' to be enabled.
+    """
+
     title = _("Discussion")
-    menu_item = {
-        "name": _("Discussion"),
-        "icon": "comments",
-    }
-    icon = "comments"
+    menu_item = plugins.PluginMenuItem(
+        name=_("Discussion"),
+        category=plugins.EXPLORE,
+        icon="comments",
+    )
     template_name = "fairdm_discussions/discussion.html"
-
-    sidebar_secondary_config = {
-        "visible": True
-    }  # Hide the secondary sidebar by default
 
     def dispatch(self, request, *args, **kwargs):
         """
-        Override dispatch to check if the discussion plugin is enabled.
+        Override dispatch to check if the discussion plugin is enabled via waffle switch.
         """
-        if not self.check(request, self.base_object, **kwargs):
-            raise Http404(_("This plugin has not been enabled."))
+        if not waffle.switch_is_active("allow_discussions"):
+            raise PermissionDenied(
+                _("Discussions have not been enabled for this site.")
+            )
         return super().dispatch(request, *args, **kwargs)
-
-    @staticmethod
-    def check(request, instance, **kwargs):
-        """
-        Check if the user has permission to view the discussion plugin.
-        This can be overridden in subclasses to implement custom logic.
-        """
-        return waffle.switch_is_active("allow_discussions")
-
-
-plugins.dataset.register(DiscussionPlugin)
-plugins.project.register(DiscussionPlugin)
-plugins.sample.register(DiscussionPlugin)
-plugins.measurement.register(DiscussionPlugin)

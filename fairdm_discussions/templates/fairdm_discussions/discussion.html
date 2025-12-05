@@ -1,4 +1,6 @@
+{% extends "fairdm/plugin.html" %}
 {% load comments comments_xtd static fairdm_discussions %}
-<c-layouts.plugin>
+
+{% block plugin %}
 <c-sections.discussion :object="base_object" />
-</c-layouts.plugin>
+{% endblock %}
